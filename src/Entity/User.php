@@ -17,7 +17,7 @@ class User
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type = "string", length = 255, unique = true)
      */
     private $username;
 
@@ -70,5 +70,14 @@ class User
         $this->role = $role;
 
         return $this;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->getId(),
+            'userName' => $this->getUsername(),
+            'role' => $this->getRole()
+        ];
     }
 }

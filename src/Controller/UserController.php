@@ -20,7 +20,7 @@ class UserController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
 
         $user = new User();
-        $user->setUsername('Admin');
+        $user->setUsername('Adminn');
         $user->setPassword('super-admin');
         $user->setRole('1');
 
