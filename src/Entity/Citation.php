@@ -29,7 +29,7 @@ class Citation
     private $personnage;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="string", length=1000, unique=true)
      */
     private $citation;
 
