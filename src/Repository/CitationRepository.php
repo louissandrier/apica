@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Character;
+use App\Entity\Citation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Character|null find($id, $lockMode = null, $lockVersion = null)
- * @method Character|null findOneBy(array $criteria, array $orderBy = null)
- * @method Character[]    findAll()
- * @method Character[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Citation|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Citation|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Citation[]    findAll()
+ * @method Citation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CharacterRepository extends ServiceEntityRepository
+class CitationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Character::class);
+        parent::__construct($registry, Citation::class);
     }
 
     // /**
-    //  * @return Character[] Returns an array of Character objects
+    //  * @return Citation[] Returns an array of Citation objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CharacterRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Character
+    public function findOneBySomeField($value): ?Citation
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
