@@ -44,4 +44,23 @@ class PersonnageController extends AbstractController
           $serializer->serialize($film, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
         );
     }
+
+    /**
+     *
+     * @Route("/update_personnage/{id}", name="update_personnage", methods={"POST"})
+     */
+    public function updatePersonnage($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $personnage = $entityManager->getRepository(Personnage::class)->find($id);
+
+      $personnage->setNom($_POST['nom']);
+
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Saved new personnage with id '.$personnage->getId());
+      return $response;
+    }
 }

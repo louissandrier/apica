@@ -44,4 +44,23 @@ class FilmController extends AbstractController
           $serializer->serialize($film, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
         );
     }
+
+    /**
+     *
+     * @Route("/update_film/{id}", name="update_film", methods={"POST"})
+     */
+    public function updateFilm($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $film = $entityManager->getRepository(Film::class)->find($id);
+
+      $film->setTitre($_POST['titre']);
+
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Saved new film with id '.$film->getId());
+      return $response;
+    }
 }

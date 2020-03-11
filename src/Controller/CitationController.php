@@ -88,4 +88,31 @@ class CitationController extends AbstractController
         );
     }
 
+    /**
+     *
+     * @Route("/update_citation/{id}", name="update_citation", methods={"POST"})
+     */
+    public function updateCitation($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $citation = $entityManager->getRepository(Citation::class)->find($id);
+
+      $repositoryPersonnage = $this->getDoctrine()->getRepository(Personnage::class);
+      $repositoryFilm = $this->getDoctrine()->getRepository(Film::class);
+
+      $personnage = $repositoryPersonnage->findOneBy(['id' => $_POST['personnage']]);
+      $film = $repositoryFilm->findOneBy(['id' => $_POST['film']]);
+
+      $citation->setPersonnage($personnage);
+      $citation->setFilm($film);
+      $citation->setCitation($_POST['citation']);
+
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Saved new citation with id '.$citation->getId());
+      return $response;
+    }
+
 }
