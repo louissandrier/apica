@@ -53,4 +53,39 @@ class CitationController extends AbstractController
           $serializer->serialize($film, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
         );
     }
+
+    /**
+     *
+     * @Route("/citation_by_film", name="get_citation_by_film", methods={"POST"})
+     */
+    public function getCitationByFilm(SerializerInterface $serializer): Response
+    {
+        $repositoryCitation = $this->getDoctrine()->getRepository(Citation::class);
+
+        $citation = $repositoryCitation->findBy(
+            ['film' => $_POST['film']]
+        );
+
+        return new Response(
+          $serializer->serialize($citation, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
+        );
+    }
+
+    /**
+     *
+     * @Route("/citation_by_personnage", name="get_citation_by_personnage", methods={"POST"})
+     */
+    public function getCitationByPersonnage(SerializerInterface $serializer): Response
+    {
+        $repositoryCitation = $this->getDoctrine()->getRepository(Citation::class);
+
+        $citation = $repositoryCitation->findBy(
+            ['personnage' => $_POST['personnage']]
+        );
+
+        return new Response(
+          $serializer->serialize($citation, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
+        );
+    }
+
 }
