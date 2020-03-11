@@ -50,4 +50,25 @@ class UserController extends AbstractController
 
     }
 
+    /**
+     *
+     * @Route("/update_user/{id}", name="update_user", methods={"POST"})
+     */
+    public function updateUser($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $user = $entityManager->getRepository(User::class)->find($id);
+
+      $user->setUsername($_POST['username']);
+      $user->setPassword($_POST['password']);
+      $user->setRole($_POST['role']);
+
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Saved new user with id '.$user->getId());
+      return $response;
+    }
+
 }
