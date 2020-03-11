@@ -45,7 +45,6 @@ class UserController extends AbstractController
         if($user->getPassword() == $_POST['password']){
           $response = new Response();
           $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
-          $response->setContent($user);
           return $response;
         }
 

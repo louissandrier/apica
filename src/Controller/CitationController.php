@@ -49,6 +49,9 @@ class CitationController extends AbstractController
 
         $citation = $repository->findAll();
 
+        var_dump($citation);
+        die();
+
         //return new JsonResponse($citation);
 
         return new Response('Saved new citation with id '.$citation);

@@ -17,13 +17,13 @@ class Citation
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\film")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Film")
      * @ORM\JoinColumn(nullable=false)
      */
     private $film;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\personnage")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Personnage")
      * @ORM\JoinColumn(nullable=false)
      */
     private $personnage;
