@@ -6,6 +6,7 @@ use App\Entity\Citation;
 use App\Entity\Personnage;
 use App\Entity\Film;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,7 +14,7 @@ class CitationController extends AbstractController
 {
     /**
      *
-     * @Route("/citation", name="create_citation", methods={"POST"})
+     * @Route("/add_citation", name="create_citation", methods={"POST"})
      */
     public function addCitation(): Response
     {
@@ -32,6 +33,24 @@ class CitationController extends AbstractController
         $entityManager->persist($citation);
         $entityManager->flush();
 
-        return new Response('Saved new citation with id '.$citation->getId());
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+        $response->setContent('Saved new citation with id '.$citation->getId());
+        return $response;
+    }
+
+    /**
+     *
+     * @Route("/all_citation", name="get_citation", methods={"GET"})
+     */
+    public function getCitation(): Response
+    {
+        $repository = $this->getDoctrine()->getRepository(Citation::class);
+
+        $citation = $repository->findAll();
+
+        //return new JsonResponse($citation);
+
+        return new Response('Saved new citation with id '.$citation);
     }
 }
