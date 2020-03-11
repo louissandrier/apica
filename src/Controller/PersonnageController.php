@@ -23,6 +23,9 @@ class PersonnageController extends AbstractController
         $entityManager->persist($personnage);
         $entityManager->flush();
 
-        return new Response('Saved new personnage with id '.$personnage->getId());
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+        $response->setContent('Saved new film with id '.$personnage->getId());
+        return $response;
     }
 }

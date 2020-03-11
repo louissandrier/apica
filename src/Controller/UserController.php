@@ -26,7 +26,10 @@ class UserController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        return new Response('Saved new user with id '.$user->getId());
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+        $response->setContent('Saved new film with id '.$user->getId());
+        return $response;
     }
 
     /**
@@ -40,8 +43,10 @@ class UserController extends AbstractController
         $user = $repository->findOneBy(['username' => $_POST['username']]);
 
         if($user->getPassword() == $_POST['password']){
-          var_dump($user);
-          return new Response();
+          $response = new Response();
+          $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+          $response->setContent($user);
+          return $response;
         }
 
     }

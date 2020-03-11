@@ -23,6 +23,9 @@ class FilmController extends AbstractController
         $entityManager->persist($film);
         $entityManager->flush();
 
-        return new Response('Saved new film with id '.$film->getId());
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+        $response->setContent('Saved new film with id '.$film->getId());
+        return $response;
     }
 }
