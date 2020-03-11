@@ -40,15 +40,8 @@ class FilmController extends AbstractController
 
         $film = $repositoryFilm->findAll();
 
-        // $response = new Response();
-        // $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
-        // $response->setContent([$film]);
-        // $response->headers->set('Content-Type', 'application/json');
-
         return new Response(
-          $serializer->serialize($film, 'json'), 200, ['Content-Type'=>'application/json']
+          $serializer->serialize($film, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
         );
-
-        //return $response;
     }
 }

@@ -8,6 +8,7 @@ use App\Entity\Film;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class CitationController extends AbstractController
 {
@@ -42,19 +43,14 @@ class CitationController extends AbstractController
      *
      * @Route("/all_citation", name="get_citation", methods={"GET"})
      */
-    public function getCitation(): Response
+    public function getCitation(SerializerInterface $serializer): Response
     {
         $repositoryCitation = $this->getDoctrine()->getRepository(Citation::class);
 
-        $citation = $repositoryCitation->findAll();
+        $film = $repositoryCitation->findAll();
 
-        var_dump($citation->getId());
-        die();
-
-        $response = new Response();
-        $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
-        $response->setContent(json_encode([$citation,]));
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        return new Response(
+          $serializer->serialize($film, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
+        );
     }
 }
