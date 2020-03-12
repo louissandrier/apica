@@ -115,4 +115,22 @@ class CitationController extends AbstractController
       return $response;
     }
 
+    /**
+     *
+     * @Route("/delete_citation/{id}", name="delete_citation", methods={"DELETE"})
+     */
+    public function deleteCitation($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $citation = $entityManager->getRepository(Citation::class)->find($id);
+
+      $entityManager->remove($citation);
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Citation supprimé');
+      return $response;
+    }
+
 }

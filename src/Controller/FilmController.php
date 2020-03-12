@@ -63,4 +63,22 @@ class FilmController extends AbstractController
       $response->setContent('Saved new film with id '.$film->getId());
       return $response;
     }
+
+    /**
+     *
+     * @Route("/delete_film/{id}", name="delete_film", methods={"DELETE"})
+     */
+    public function deleteFilm($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $film = $entityManager->getRepository(Film::class)->find($id);
+
+      $entityManager->remove($film);
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Film supprimé');
+      return $response;
+    }
 }

@@ -71,4 +71,22 @@ class UserController extends AbstractController
       return $response;
     }
 
+    /**
+     *
+     * @Route("/delete_user/{id}", name="delete_user", methods={"DELETE"})
+     */
+    public function deleteUser($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $user = $entityManager->getRepository(User::class)->find($id);
+
+      $entityManager->remove($user);
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('User supprimé');
+      return $response;
+    }
+
 }

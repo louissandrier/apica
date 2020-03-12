@@ -63,4 +63,22 @@ class PersonnageController extends AbstractController
       $response->setContent('Saved new personnage with id '.$personnage->getId());
       return $response;
     }
+
+    /**
+     *
+     * @Route("/delete_personnage/{id}", name="delete_personnage", methods={"DELETE"})
+     */
+    public function deletePersonnage($id): Response
+    {
+      $entityManager = $this->getDoctrine()->getManager();
+      $personnage = $entityManager->getRepository(Personnage::class)->find($id);
+
+      $entityManager->remove($personnage);
+      $entityManager->flush();
+
+      $response = new Response();
+      $response->headers->set('Access-Control-Allow-Origin', 'https://localhost');
+      $response->setContent('Personnage supprimé');
+      return $response;
+    }
 }
