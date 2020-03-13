@@ -56,14 +56,14 @@ class CitationController extends AbstractController
 
     /**
      *
-     * @Route("/citation_by_id", name="get_citation_by_id", methods={"POST"})
+     * @Route("/citation_by_id/{id}", name="get_citation_by_id", methods={"GET"})
      */
-    public function getCitationById(SerializerInterface $serializer): Response
+    public function getCitationById(SerializerInterface $serializer, $id): Response
     {
         $repositoryCitation = $this->getDoctrine()->getRepository(Citation::class);
 
         $citation = $repositoryCitation->findBy(
-            ['id' => $_POST['id']]
+            ['id' => $id]
         );
 
         return new Response(
