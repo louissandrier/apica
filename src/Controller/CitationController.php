@@ -56,6 +56,23 @@ class CitationController extends AbstractController
 
     /**
      *
+     * @Route("/citation_by_id", name="get_citation_by_id", methods={"POST"})
+     */
+    public function getCitationById(SerializerInterface $serializer): Response
+    {
+        $repositoryCitation = $this->getDoctrine()->getRepository(Citation::class);
+
+        $citation = $repositoryCitation->findBy(
+            ['id' => $_POST['id']]
+        );
+
+        return new Response(
+          $serializer->serialize($citation, 'json'), 200, ['Content-Type'=>'application/json', 'Access-Control-Allow-Origin'=>'https://localhost']
+        );
+    }
+
+    /**
+     *
      * @Route("/citation_by_film", name="get_citation_by_film", methods={"POST"})
      */
     public function getCitationByFilm(SerializerInterface $serializer): Response
